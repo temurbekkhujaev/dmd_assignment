@@ -7,6 +7,33 @@ CREATE TABLE Account (
 	Last_time_online TIMESTAMP NOT NULL
 );
 
+CREATE TABLE Staff (
+	Passport_number INTEGER PRIMARY KEY,
+	Account_id INTEGER UNIQUE NOT NULL,
+	Full_name VARCHAR(50) NOT NULL,
+	Position VARCHAR(50) NOT NULL,
+	FOREIGN KEY (Account_id) REFERENCES Account(Account_id)
+);
+
+CREATE TABLE Medical_staff (
+	MS_id INTEGER PRIMARY KEY,
+	Passport_number INTEGER,
+	FOREIGN KEY (Passport_number) REFERENCES Staff(Passport_number)
+);
+
+CREATE TABLE Nonmedical_staff (
+	NMS_id INTEGER PRIMARY KEY,
+	Passport_number INTEGER,
+	FOREIGN KEY (Passport_number) REFERENCES Staff(Passport_number)
+);
+
+CREATE TABLE Doctors (
+	Doctor_id SERIAL PRIMARY KEY,
+	MS_id INTEGER NOT NULL,
+	Specialization VARCHAR(50) NOT NULL,
+	FOREIGN KEY (MS_id) REFERENCES Medical_staff(MS_id)
+);
+
 CREATE TABLE Patients (
 	Patient_id SERIAL PRIMARY KEY,
 	Account_id INTEGER,
@@ -18,11 +45,6 @@ CREATE TABLE Patients (
 	Credit_card_number VARCHAR(16) UNIQUE NOT NULL,
 	Age INTEGER NOT NULL,
 	FOREIGN KEY (Account_id) REFERENCES Account(Account_id)
-);
-
-CREATE TABLE Doctors (
-	Doctor_id INTEGER PRIMARY KEY,
-	Specialization VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE Schedule (
@@ -80,29 +102,9 @@ CREATE TABLE Video_records (
 	Camera_number INTEGER NOT NULL
 );
 
-CREATE TABLE Staff (
-	Passport_number INTEGER PRIMARY KEY,
-	Account_id INTEGER UNIQUE NOT NULL,
-	Full_name VARCHAR(50) NOT NULL,
-	Position VARCHAR(50) NOT NULL,
-	FOREIGN KEY (Account_id) REFERENCES Account(Account_id)
-);
-
 CREATE TABLE Email (
 	Passport_number INTEGER,
 	Email VARCHAR(50),
-	FOREIGN KEY (Passport_number) REFERENCES Staff(Passport_number)
-);
-
-CREATE TABLE Medical_staff (
-	MS_id INTEGER PRIMARY KEY,
-	Passport_number INTEGER,
-	FOREIGN KEY (Passport_number) REFERENCES Staff(Passport_number)
-);
-
-CREATE TABLE Nonmedical_staff (
-	NMS_id INTEGER PRIMARY KEY,
-	Passport_number INTEGER,
 	FOREIGN KEY (Passport_number) REFERENCES Staff(Passport_number)
 );
 
