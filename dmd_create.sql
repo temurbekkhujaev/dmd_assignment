@@ -125,7 +125,7 @@ CREATE TABLE Receivers (
 );
 
 CREATE TABLE Equipment (
-	Equipment_id INTEGER PRIMARY KEY,
+	Equipment_id SERIAL PRIMARY KEY,
 	Name VARCHAR(50) NOT NULL,
 	Quantity INTEGER NOT NULL
 );
