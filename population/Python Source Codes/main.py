@@ -15,7 +15,7 @@ medical_equipments_list = [
     "Laryngoscope",
     "Nebulizer"
 ]
-non_medical_equipments_list = ["Bed", "Chair", "Table", "Table lamp", ]
+non_medical_equipments_list = ["Bed", "Chair", "Table", "Table lamp", "Sofa", "Wardrobe"]
 diagnosis_list = [
     "Hypertension", "Pain in joint",
     "Hyperlipidemia", "Acute laryngopharyngitis",
@@ -122,3 +122,6 @@ def non_medical_equipment():
 
 def medical_equipment():
     return fake.word(ext_word_list=medical_equipments_list)
+
+def passport_number():
+    return 1
