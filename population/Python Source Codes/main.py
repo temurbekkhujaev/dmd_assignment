@@ -108,13 +108,9 @@ def chance(x):
     return (fake.random_int(min=1, max=100) <= x)
 
 
-def first_name():
-    return fake.first_name()
 
-
-def last_name():
-    return fake.last_name()
-
+def full_name():
+    return fake.name()
 
 def non_medical_equipment():
     return fake.word(ext_word_list=non_medical_equipments_list)
@@ -123,5 +119,22 @@ def non_medical_equipment():
 def medical_equipment():
     return fake.word(ext_word_list=medical_equipments_list)
 
+
 def passport_number():
-    return 1
+    return fake.ean(13)
+
+
+def login():
+    return fake.user_name()
+
+
+def password():
+    return fake.password(length=10, special_chars=True, digits=True, upper_case=True, lower_case=True)
+
+
+def last_time_online():
+    return fake.date_time_between(start_date="-7d", end_date="now", tzinfo=None)
+
+
+def account_created():
+    return fake.date_time_between(start_date="-10y", end_date="now", tzinfo=None)
