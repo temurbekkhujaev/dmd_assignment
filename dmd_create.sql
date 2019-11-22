@@ -16,13 +16,13 @@ CREATE TABLE Staff (
 );
 
 CREATE TABLE Medical_staff (
-	MS_id INTEGER PRIMARY KEY,
+	MS_id SERIAL PRIMARY KEY,
 	Passport_number INTEGER,
 	FOREIGN KEY (Passport_number) REFERENCES Staff(Passport_number)
 );
 
 CREATE TABLE Nonmedical_staff (
-	NMS_id INTEGER PRIMARY KEY,
+	NMS_id SERIAL PRIMARY KEY,
 	Passport_number INTEGER,
 	FOREIGN KEY (Passport_number) REFERENCES Staff(Passport_number)
 );

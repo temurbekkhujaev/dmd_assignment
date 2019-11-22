@@ -104,13 +104,17 @@ medical_position_list = [
 ]
 
 
+def wrap(x):
+    return "'" + str(x) + "'"
+
+
 def chance(x):
     return (fake.random_int(min=1, max=100) <= x)
 
 
-
 def full_name():
     return fake.name()
+
 
 def non_medical_equipment():
     return fake.word(ext_word_list=non_medical_equipments_list)
@@ -125,16 +129,16 @@ def passport_number():
 
 
 def login():
-    return fake.user_name()
+    return wrap(fake.user_name())
 
 
 def password():
-    return fake.password(length=10, special_chars=True, digits=True, upper_case=True, lower_case=True)
+    return wrap(fake.password(length=10, special_chars=True, digits=True, upper_case=True, lower_case=True))
 
 
 def last_time_online():
-    return fake.date_time_between(start_date="-7d", end_date="now", tzinfo=None)
+    return wrap(fake.date_time_between(start_date="-7d", end_date="now", tzinfo=None))
 
 
 def account_created():
-    return fake.date_time_between(start_date="-10y", end_date="now", tzinfo=None)
+    return wrap(fake.date_time_between(start_date="-10y", end_date="now", tzinfo=None))
