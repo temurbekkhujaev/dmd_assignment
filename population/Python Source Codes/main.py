@@ -113,7 +113,7 @@ def chance(x):
 
 
 def full_name():
-    return fake.name()
+    return wrap(fake.name())
 
 
 def non_medical_equipment():
