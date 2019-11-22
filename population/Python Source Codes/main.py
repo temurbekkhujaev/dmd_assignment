@@ -61,7 +61,7 @@ non_medical_position_list = [
     "Sanitation",
     "Adminstration",
 ]
-medical_position_list = [
+medical_specialization_list = [
     "Allergy",
     "Colorectal Surgery",
     "General Surgery",
@@ -119,13 +119,14 @@ def full_name():
 def non_medical_equipment():
     return fake.word(ext_word_list=non_medical_equipments_list)
 
-
+def medical_specialization():
+    return wrap(fake.word(ext_word_list=medical_specialization_list))
 def medical_equipment():
     return fake.word(ext_word_list=medical_equipments_list)
 
 
 def passport_number():
-    return fake.ean(13)
+    return fake.ean(8)
 
 
 def login():
