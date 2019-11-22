@@ -94,13 +94,7 @@ medical_specialization_list = [
     "Cardiovascular Surgery",
     "Gastroenterology",
     "Infectious Disease",
-    "Neuroradiology",
-    "Nurse", "Nurse", "Nurse", "Nurse",
-    "Nurse", "Nurse", "Nurse", "Nurse",
-    "Nurse", "Nurse", "Nurse", "Nurse",
-    "Nurse", "Nurse", "Nurse", "Nurse",
-    "Nurse", "Nurse", "Nurse", "Nurse",
-    "Nurse", "Nurse", "Nurse", "Nurse",
+    "Neuroradiology"
 ]
 
 
