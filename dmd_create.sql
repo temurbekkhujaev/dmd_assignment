@@ -27,14 +27,14 @@ CREATE TABLE Nonmedical_staff (
 	FOREIGN KEY (Passport_number) REFERENCES Staff(Passport_number)
 );
 
-CREATE TABLE Doctors (
+CREATE TABLE Doctor (
 	Doctor_id SERIAL PRIMARY KEY,
 	MS_id INTEGER NOT NULL,
 	Specialization VARCHAR(50) NOT NULL,
 	FOREIGN KEY (MS_id) REFERENCES Medical_staff(MS_id)
 );
 
-CREATE TABLE Patients (
+CREATE TABLE Patient (
 	Patient_id SERIAL PRIMARY KEY,
 	Account_id INTEGER,
 	Full_name VARCHAR(50) NOT NULL,
@@ -52,10 +52,10 @@ CREATE TABLE Schedule (
 	Day VARCHAR(3),
 	Start_time TIME NOT NULL,
 	End_time TIME NOT NULL,
-	FOREIGN KEY (Doctor_id) REFERENCES Doctors(Doctor_id)
+	FOREIGN KEY (Doctor_id) REFERENCES Doctor(Doctor_id)
 );
 
-CREATE TABLE Appointments (
+CREATE TABLE Appointment (
 	Appointment_id SERIAL PRIMARY KEY,
 	Doctor_id INTEGER NOT NULL,
 	Patient_id INTEGER NOT NULL,
@@ -64,26 +64,26 @@ CREATE TABLE Appointments (
 	Duration INTERVAL,
 	Room INTEGER NOT NULL,
 	Price INTEGER,
-	FOREIGN KEY (Doctor_id) REFERENCES Doctors(Doctor_id),
-	FOREIGN KEY (Patient_id) REFERENCES Patients(Patient_id)
+	FOREIGN KEY (Doctor_id) REFERENCES Doctor(Doctor_id),
+	FOREIGN KEY (Patient_id) REFERENCES Patient(Patient_id)
 );
 
-CREATE TABLE Medical_records (
+CREATE TABLE Medical_record (
 	Record_id SERIAL PRIMARY KEY,
 	Patient_id INTEGER NOT NULL,
 	Creation_date DATE NOT NULL,
 	Diagnosis VARCHAR(1000),
 	Prescription VARCHAR(1000),
-	FOREIGN KEY (Patient_id) REFERENCES Patients(Patient_id)
+	FOREIGN KEY (Patient_id) REFERENCES Patient(Patient_id)
 );
 
-CREATE TABLE Notifications (
+CREATE TABLE Notification (
 	Notification_id SERIAL NOT NULL,
 	Patient_id INTEGER NOT NULL,
 	Date DATE NOT NULL,
 	Event VARCHAR(100) NOT NULL,
 	Sound INTEGER,
-	FOREIGN KEY (Patient_id) REFERENCES Patients(Patient_id)
+	FOREIGN KEY (Patient_id) REFERENCES Patient(Patient_id)
 );
 
 CREATE TABLE Payment (
@@ -92,10 +92,10 @@ CREATE TABLE Payment (
 	Date DATE NOT NULL,
 	Description VARCHAR(300),
 	Amount INTEGER NOT NULL,
-	FOREIGN KEY (Patient_id) REFERENCES Patients(Patient_id)
+	FOREIGN KEY (Patient_id) REFERENCES Patient(Patient_id)
 );
 
-CREATE TABLE Video_records (
+CREATE TABLE Video_record (
 	Video_id SERIAL PRIMARY KEY,
 	Date DATE NOT NULL,
 	Path VARCHAR(100) NOT NULL,
@@ -108,7 +108,7 @@ CREATE TABLE Email (
 	FOREIGN KEY (Passport_number) REFERENCES Staff(Passport_number)
 );
 
-CREATE TABLE Messages (
+CREATE TABLE Message (
 	Message_id SERIAL PRIMARY KEY,
 	Passport_number INTEGER,
 	Date_sent DATE NOT NULL,
@@ -117,10 +117,10 @@ CREATE TABLE Messages (
 	FOREIGN KEY (Passport_number) REFERENCES Staff(Passport_number)
 );
 
-CREATE TABLE Receivers (
+CREATE TABLE Receiver (
 	Message_id INTEGER,
 	Receiver_id INTEGER,
-	FOREIGN KEY (Message_id) REFERENCES Messages(Message_id),
+	FOREIGN KEY (Message_id) REFERENCES Message(Message_id),
 	FOREIGN KEY (Receiver_id) REFERENCES Staff(Passport_number)
 );
 
