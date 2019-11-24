@@ -50,8 +50,7 @@ CREATE TABLE Patient (
 CREATE TABLE Schedule (
 	Doctor_id INTEGER,
 	Day VARCHAR(3),
-	Start_time TIME NOT NULL,
-	End_time TIME NOT NULL,
+	Time TIME NOT NULL,
 	FOREIGN KEY (Doctor_id) REFERENCES Doctor(Doctor_id)
 );
 
@@ -61,7 +60,6 @@ CREATE TABLE Appointment (
 	Patient_id INTEGER NOT NULL,
 	Date DATE NOT NULL,
 	Time TIME NOT NULL,
-	Duration INTERVAL,
 	Room INTEGER NOT NULL,
 	Price INTEGER,
 	FOREIGN KEY (Doctor_id) REFERENCES Doctor(Doctor_id),
