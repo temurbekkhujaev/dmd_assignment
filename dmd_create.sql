@@ -59,8 +59,7 @@ CREATE TABLE Appointment (
 	Doctor_id INTEGER NOT NULL,
 	Patient_id INTEGER NOT NULL,
 	Room INTEGER NOT NULL,
-	Date DATE NOT NULL,
-	Time TIME NOT NULL,
+	Date TIMESTAMP NOT NULL,
 	Price INTEGER,
 	FOREIGN KEY (Doctor_id) REFERENCES Doctor(Doctor_id),
 	FOREIGN KEY (Patient_id) REFERENCES Patient(Patient_id)
