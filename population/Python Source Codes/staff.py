@@ -27,7 +27,7 @@ days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
 
 
 def create_schedule(f):
-    working_chance = int((40 + fake.random_int(min=0, max=40)) / (7 * 24) * 100)
+    working_chance = int((10 + fake.random_int(min=0, max=50)) / (7 * 24) * 100)
     for i in range(7 * 24):
         if (chance(working_chance)):
             print("INSERT INTO Schedule(Doctor_id, Day, Time) VALUES ((SELECT CURRVAL('Doctor_doctor_id_seq')), " + wrap(days[i // 24]) + " , '" + str(i % 24) + ":00' );", file=f)
