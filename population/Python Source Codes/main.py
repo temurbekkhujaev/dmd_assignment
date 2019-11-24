@@ -113,14 +113,46 @@ def full_name():
 def non_medical_equipment():
     return fake.word(ext_word_list=non_medical_equipments_list)
 
+
 def medical_specialization():
     return wrap(fake.word(ext_word_list=medical_specialization_list))
+
+
 def medical_equipment():
     return fake.word(ext_word_list=medical_equipments_list)
 
 
+def nonmedical_position():
+    return wrap(fake.word(ext_word_list=non_medical_position_list))
+
+
+used_passport_numbers = {'-1'}
+used_insurance_numbers = {'-1'}
+used_credit_numbers = {'-1'}
+
+
 def passport_number():
-    return fake.ean(8)
+    while True:
+        r = fake.ean(8)
+        if r not in used_passport_numbers and int(r) > 9999999:
+            used_passport_numbers.add(r)
+            return r
+
+
+def insurance_number():
+    while True:
+        r = fake.ein()
+        if r not in used_insurance_numbers:
+            used_insurance_numbers.add(r)
+            return wrap(r)
+
+
+def credit_number():
+    while True:
+        r = fake.credit_card_number(card_type='mastercard')
+        if r not in used_credit_numbers:
+            used_credit_numbers.add(r)
+            return wrap(r)
 
 
 def login():
@@ -129,6 +161,11 @@ def login():
 
 def password():
     return wrap(fake.password(length=10, special_chars=True, digits=True, upper_case=True, lower_case=True))
+
+
+def address():
+
+    return wrap(fake.address().replace("\n"," , "))
 
 
 def last_time_online():
