@@ -58,9 +58,9 @@ CREATE TABLE Appointment (
 	Appointment_id SERIAL PRIMARY KEY,
 	Doctor_id INTEGER NOT NULL,
 	Patient_id INTEGER NOT NULL,
+	Room INTEGER NOT NULL,
 	Date DATE NOT NULL,
 	Time TIME NOT NULL,
-	Room INTEGER NOT NULL,
 	Price INTEGER,
 	FOREIGN KEY (Doctor_id) REFERENCES Doctor(Doctor_id),
 	FOREIGN KEY (Patient_id) REFERENCES Patient(Patient_id)
