@@ -1,8 +1,10 @@
+#!/usr/bin/env python
+
 from main import *
+import sys
+n = int(sys.argv[1])
 
-n = int(input())
-
-with open('/home/temurbek/DMD/dmd_assignment/population/video_record.sql', 'w') as f:
+with open('hospital.sql', 'a+') as f:
     for i in range(n):
         camera_number = fake.random_int(min=1, max=50)
         date = fake.date_this_month(before_today=True, after_today=False)

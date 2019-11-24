@@ -1,4 +1,7 @@
+#!/usr/bin/env python
+
 from main import *
+import sys
 from account import *
 
 
@@ -29,9 +32,11 @@ def create_payment():
            wrap(fake.sentence().replace("\n", "")) + " , " + str(fake.random_int(min=1, max=9999999)) + " );"
 
 
-n = int(input())
+#n = int(input())
 
-with open('/home/temurbek/DMD/dmd_assignment/population/patient.sql', 'w') as f:
+n = int(sys.argv[1])
+
+with open('hospital.sql', 'a+') as f:
     for i in range(n):
         print(create_account(5), file=f)
         print(create_patient(), file=f)
