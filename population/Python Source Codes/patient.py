@@ -9,9 +9,39 @@ def create_patient():
            credit_number() + " , " + wrap(age) + " );"
 
 
+def create_appointment():
+    return "INSERT INTO Appointment(Doctor_id, Patient_id, Room, Date, Price) VALUES ( (SELECT floor(random() * ( (SELECT CURRVAL('Doctor_doctor_id_seq')) ) + 1 )) , (SELECT CURRVAL('Patient_patient_id_seq') ), " \
+           + str(fake.random_int(min=1, max=999)) + " , " + account_created() + " , " + str(fake.random_int(min=0, max=999)) + " );"
+
+
+def create_medical_record():
+    return "INSERT INTO Medical_record(Patient_id, Creation_date, Diagnosis, Prescription) VALUES ((SELECT CURRVAL('Patient_patient_id_seq') ), " + account_created() + " , " + \
+           wrap(fake.word(ext_word_list=diagnosis_list)) + " , " + wrap(fake.word(ext_word_list=prescription_list)) + " );"
+
+
+def create_notification():
+    return "INSERT INTO Notification(Patient_id, Date, Event, Sound) VALUES ((SELECT CURRVAL('Patient_patient_id_seq') ), " + account_created() + " , " + \
+           wrap(fake.sentence().replace("\n", "")) + " , " + str(fake.random_int(min=0, max=10)) + " );"
+
+
+def create_payment():
+    return "INSERT INTO Payment(Patient_id, Date, Description, Amount) VALUES ((SELECT CURRVAL('Patient_patient_id_seq') ), " + account_created() + " , " + \
+           wrap(fake.sentence().replace("\n", "")) + " , " + str(fake.random_int(min=1, max=9999999)) + " );"
+
+
 n = int(input())
 
 with open('/home/temurbek/DMD/dmd_assignment/population/patient.sql', 'w') as f:
     for i in range(n):
         print(create_account(5), file=f)
         print(create_patient(), file=f)
+        print(create_appointment(), file=f)
+        print(create_appointment(), file=f)
+        print(create_appointment(), file=f)
+        print(create_appointment(), file=f)
+        print(create_appointment(), file=f)
+        print(create_medical_record(), file=f)
+        print(create_notification(), file=f)
+        print(create_notification(), file=f)
+        print(create_payment(), file=f)
+        print(create_payment(), file=f)

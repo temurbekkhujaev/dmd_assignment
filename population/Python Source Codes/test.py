@@ -1,7 +1,7 @@
 from main import *
 from account import *
-print(address())
-print(address())
-print(address())
-print(address())
-print(address())
+from patient import create_appointment
+
+print(create_appointment())
+print(create_appointment())
+print(create_appointment())

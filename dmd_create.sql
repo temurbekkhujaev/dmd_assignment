@@ -108,8 +108,7 @@ CREATE TABLE Email (
 CREATE TABLE Message (
 	Message_id SERIAL PRIMARY KEY,
 	Passport_number INTEGER,
-	Date_sent DATE NOT NULL,
-	Time_sent TIME NOT NULL,
+	Time_sent TIMESTAMP NOT NULL,
 	Text VARCHAR(1000) NOT NULL,
 	FOREIGN KEY (Passport_number) REFERENCES Staff(Passport_number)
 );
