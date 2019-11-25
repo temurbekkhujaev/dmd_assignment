@@ -40,6 +40,7 @@ CREATE TABLE Patient (
 	Full_name VARCHAR(50) NOT NULL,
 	Address VARCHAR(200) NOT NULL,
 	Date_of_birth DATE NOT NULL,
+	Gender VARCHAR(1) NOT NULL,
 	Passport_number INTEGER UNIQUE NOT NULL,
 	Insurance_policy_number VARCHAR(50) UNIQUE NOT NULL,
 	Credit_card_number VARCHAR(16) UNIQUE NOT NULL,
