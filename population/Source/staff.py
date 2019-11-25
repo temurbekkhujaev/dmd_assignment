@@ -53,9 +53,9 @@ n = int(sys.argv[1])
 
 with open('hospital.sql', 'w') as f:
     with open('../dmd_create.sql', 'r') as dmd_create:
+
         for line in dmd_create:
-            if "ROW" in line:
-                f.write(line)
+            f.write(line)
 
     for i in range(n):
         if chance(30) or i < 30:
@@ -75,6 +75,6 @@ with open('hospital.sql', 'w') as f:
             print(create_staff(nonmedical_position()), file=f)
             create_email(f)
             print(create_nonmedical_staff(), file=f)
-        if i > 4:
+        if i > 30:
             for j in range(fake.random_int(min=0, max=5)):
                 create_message(f)

@@ -16,7 +16,7 @@ def create_patient():
         gender = wrap("M")
 
     return "INSERT INTO Patient(Account_id, Full_name, Address, Date_of_birth, Gender, Passport_number, Insurance_policy_number, Credit_card_number, Age) VALUES ((SELECT CURRVAL('account_account_id_seq') )," + \
-           name + " , " + address() + " , " + wrap(fake.date_of_birth(tzinfo=None, minimum_age=age, maximum_age=age)) + " , " + passport_number() + " , " + gender + " , " + insurance_number() + " , " + \
+           name + " , " + address() + " , " + wrap(fake.date_of_birth(tzinfo=None, minimum_age=age, maximum_age=age)) + " , " + gender + " , " + passport_number() + " , " + insurance_number() + " , " + \
            credit_number() + " , " + wrap(age) + " );"
 
 
