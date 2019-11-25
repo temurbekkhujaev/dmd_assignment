@@ -10,11 +10,11 @@ def connect(host, database, user, password):
         print("connection done")
 
 def query_1(id, conn):
-    part1 = "SELECT Date FROM Appointment WHERE Patient_id=%s ORDER BY Date FETCH FIRST 1 ROWS ONLY" % id
-    part2 = "SELECT Doctor_id FROM Appointment as A, (%s) as D WHERE A.Date=D.Date" % part1
-    part3 = """SELECT Full_name FROM Doctor as D, Medical_staff as MS, Staff as S, (%s) as Dc 
+    part1 = "SELECT Date FROM Appointment WHERE Patient_id=%s ORDER BY Date DESC FETCH FIRST 1 ROWS ONLY" % id
+    part2 = "SELECT DISTINCT Doctor_id FROM Appointment as A, (%s) as D WHERE A.Date=D.Date" % part1
+    part3 = """WITH Dc as (%s) SELECT Full_name FROM Doctor as D, Medical_staff as MS, Staff as S, Dc 
             WHERE Dc.Doctor_id=D.Doctor_id AND D.MS_id=MS.MS_id AND MS.Passport_number=S.Passport_number 
-            AND Full_name LIKE '[ML]%%';""" % part2
+            AND (Full_name LIKE 'M%%' OR Full_name LIKE 'L%%');""" % part2
     cur = conn.cursor()
     cur.execute(part3)
     rows = cur.fetchall()
