@@ -7,8 +7,16 @@ from account import *
 
 def create_patient():
     age = fake.random_int(min=1, max=115)
-    return "INSERT INTO Patient(Account_id, Full_name, Address, Date_of_birth, Passport_number, Insurance_policy_number, Credit_card_number, Age) VALUES ((SELECT CURRVAL('account_account_id_seq') )," + \
-           full_name() + " , " + address() + " , " + wrap(fake.date_of_birth(tzinfo=None, minimum_age=age, maximum_age=age)) + " , " + passport_number() + " , " + insurance_number() + " , " + \
+
+    if chance(50):
+        name = wrap(fake.name_female())
+        gender = wrap("F")
+    else:
+        name = wrap(fake.name_male())
+        gender = wrap("M")
+
+    return "INSERT INTO Patient(Account_id, Full_name, Address, Date_of_birth, Gender, Passport_number, Insurance_policy_number, Credit_card_number, Age) VALUES ((SELECT CURRVAL('account_account_id_seq') )," + \
+           name + " , " + address() + " , " + wrap(fake.date_of_birth(tzinfo=None, minimum_age=age, maximum_age=age)) + " , " + passport_number() + " , " + gender + " , " + insurance_number() + " , " + \
            credit_number() + " , " + wrap(age) + " );"
 
 

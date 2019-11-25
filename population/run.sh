@@ -4,7 +4,7 @@ chmod +x ./Source/patient.py
 chmod +x ./Source/video_record.py
 chmod +x ./Source/equipment.py
 
-./Source/staff.py 50
-./Source/patient.py 150
-./Source/video_record.py 200
-./Source/equipment.py 50
+./Source/staff.py 500
+./Source/patient.py 2000
+./Source/video_record.py 1000
+./Source/equipment.py 1000
