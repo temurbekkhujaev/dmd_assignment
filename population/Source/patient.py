@@ -32,7 +32,7 @@ def create_payment():
            wrap(fake.sentence().replace("\n", "")) + " , " + str(fake.random_int(min=1, max=9999999)) + " );"
 
 
-#n = int(input())
+# n = int(input())
 
 n = int(sys.argv[1])
 
@@ -40,11 +40,7 @@ with open('hospital.sql', 'a+') as f:
     for i in range(n):
         print(create_account(5), file=f)
         print(create_patient(), file=f)
-        print(create_appointment(), file=f)
-        print(create_appointment(), file=f)
-        print(create_appointment(), file=f)
-        print(create_appointment(), file=f)
-        print(create_appointment(), file=f)
+        for j in range(25): print(create_appointment(), file=f)
         print(create_medical_record(), file=f)
         print(create_notification(), file=f)
         print(create_notification(), file=f)
