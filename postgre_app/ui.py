@@ -23,14 +23,10 @@ class UI:
         self.app.exec_()
 
     def on_ok_button(self):
-        '''self.host = self.dialog.host_tb.toPlainText()
+        self.host = self.dialog.host_tb.toPlainText()
         self.db_name = self.dialog.db_name_tb.toPlainText()
         self.login = self.dialog.login_tb.toPlainText()
-        self.password = self.dialog.password_tb.toPlainText()'''
-        self.host = "localhost"
-        self.db_name = "hospital_test"
-        self.login = "postgres"
-        self.password = "90trks125"
+        self.password = self.dialog.password_tb.toPlainText()
         self.connection = test.connect(self.host, self.db_name, self.login, self.password)
         self.window = DaBestApp()
         self.window.setupUi(self.window)
