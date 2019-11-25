@@ -57,7 +57,18 @@ class UI:
             self.window.listView.setModel(names)
 
     def query2(self):
-        pass
+        stats = test.query_2(self.connection)
+        model = QtGui.QStandardItemModel()
+        item = QtGui.QStandardItem(str('{:^30}'.format('doctor name') + '|' + '{:^10}'.format('DOW') + '|'
+                                        + '{:^10}'.format('timeslot') + '|' + '{:^7}'.format('total') + '|'
+                                        + '{:9}'.format('average')))
+        model.appendRow(item)
+        for stat in stats:
+            item = QtGui.QStandardItem(str('{: <30}'.format(str(stat[0])) + '|' + '{:^10}'.format(str(stat[1])) + '|'
+                                           + '{:^10}'.format(str(stat[2])) + '|' + '{:^7}'.format(str(stat[3])) + '|'
+                                           + '{:9}'.format(str(stat[4]))))
+            model.appendRow(item)
+        self.window.listView.setModel(model)
 
     def query3(self):
         patients = test.query_3(self.connection)
