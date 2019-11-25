@@ -10,9 +10,14 @@ def connect(host, database, user, password):
         print("connection done")
 
 def query_1(id, conn):
-    part1 = "SELECT Date FROM Appointment WHERE Patient_id=%s ORDER BY Date DESC FETCH FIRST 1 ROWS ONLY" % id
-    part2 = "SELECT DISTINCT Doctor_id FROM Appointment as A, (%s) as D WHERE A.Date=D.Date" % part1
-    part3 = """WITH Dc as (%s) SELECT Full_name FROM Doctor as D, Medical_staff as MS, Staff as S, Dc 
+    part1 = """SELECT Date 
+            FROM Appointment 
+            WHERE Patient_id=%s ORDER BY Date DESC FETCH FIRST 1 ROWS ONLY""" % id
+    part2 = """SELECT DISTINCT Doctor_id 
+            FROM Appointment as A, (%s) as D 
+            WHERE A.Date=D.Date""" % part1
+    part3 = """WITH Dc as (%s) SELECT Full_name 
+            FROM Doctor as D, Medical_staff as MS, Staff as S, Dc 
             WHERE Dc.Doctor_id=D.Doctor_id AND D.MS_id=MS.MS_id AND MS.Passport_number=S.Passport_number 
             AND (Full_name LIKE 'M%%' OR Full_name LIKE 'L%%');""" % part2
     cur = conn.cursor()
@@ -29,7 +34,8 @@ def query_2(conn):
     part5 = """SELECT AA.Day, AA.Time, AA.Doctor_id, AA.Total, (AA.Total*1.0/360) as Average FROM AA"""
     part6 = """WITH LY as (%s), AA as (%s), AAA as (%s)
             SELECT Full_name, AAA.Day, AAA.Time, AAA.Total, Average FROM AAA, Doctor as D, Medical_Staff as MS, 
-            Staff as S WHERE AAA.Doctor_id=D.Doctor_id AND D.MS_id=MS.MS_id AND MS.Passport_number=S.Passport_number;""" % (part1, part4, part5)
+            Staff as S WHERE AAA.Doctor_id=D.Doctor_id AND D.MS_id=MS.MS_id AND MS.Passport_number=S.Passport_number 
+            ORDER BY Full_name, AAA.Day, AAA.Time;""" % (part1, part4, part5)
     cur = conn.cursor()
     cur.execute(part6)
     rows = cur.fetchall()
@@ -37,23 +43,27 @@ def query_2(conn):
     return rows
 
 def query_3(conn):
-    part1 = "SELECT Patient_id FROM Appointment WHERE Date BETWEEN now()::timestamp - INTERVAL '7 days' AND now()::timestamp"
-    part2 = """SELECT Patient_id FROM Appointment WHERE Date BETWEEN now()::timestamp - INTERVAL '14 days' 
-            AND now()::timestamp - INTERVAL '7 days'"""
-    part3 = """SELECT Patient_id FROM Appointment WHERE Date BETWEEN now()::timestamp - INTERVAL '21 days' 
-            AND now()::timestamp - INTERVAL '14 days'"""
-    part4 = """SELECT Patient_id FROM Appointment WHERE Date BETWEEN now()::timestamp - INTERVAL '28 days' 
-            AND now()::timestamp - INTERVAL '21 days'"""
-    part5 = "SELECT COUNT(Patient_id) FROM Appointment WHERE Date BETWEEN now()::timestamp - INTERVAL '7 days' AND now()::timestamp"
-    part6 = """SELECT COUNT(Patient_id) FROM Appointment WHERE Date BETWEEN now()::timestamp - INTERVAL '14 days' 
-                AND now()::timestamp - INTERVAL '7 days'"""
-    part7 = """SELECT COUNT(Patient_id) FROM Appointment WHERE Date BETWEEN now()::timestamp - INTERVAL '21 days' 
-                AND now()::timestamp - INTERVAL '14 days'"""
-    part8 = """SELECT COUNT(Patient_id) FROM Appointment WHERE Date BETWEEN now()::timestamp - INTERVAL '28 days' 
-                AND now()::timestamp - INTERVAL '21 days'"""
-    part9 = """SELECT DISTINCT P.Patient_id, P.Full_name FROM Patient as P, Appointment as A WHERE EXISTS (%s) AND EXISTS (%s) 
-            AND EXISTS (%s) AND EXISTS (%s) GROUP BY P.Patient_id HAVING (%s)>=2 AND (%s)>=2 
-            AND (%s)>=2 AND (%s)>=2;""" % (part1, part2, part3, part4, part5, part6, part7, part8)
+    part5 = """SELECT COUNT(*), Patient_id 
+            FROM Appointment 
+            WHERE Date BETWEEN now()::timestamp - INTERVAL '7 days' AND now()::timestamp GROUP BY Patient_id"""
+    part6 = """SELECT COUNT(Patient_id), Patient_id 
+            FROM Appointment 
+            WHERE Date BETWEEN now()::timestamp - INTERVAL '14 days' AND now()::timestamp - INTERVAL '7 days' 
+            GROUP BY Patient_id"""
+    part7 = """SELECT COUNT(Patient_id), Patient_id 
+            FROM Appointment 
+            WHERE Date BETWEEN now()::timestamp - INTERVAL '21 days' AND now()::timestamp - INTERVAL '14 days' 
+            GROUP BY Patient_id"""
+    part8 = """SELECT COUNT(Patient_id), Patient_id 
+            FROM Appointment 
+            WHERE Date BETWEEN now()::timestamp - INTERVAL '28 days' AND now()::timestamp - INTERVAL '21 days' 
+            GROUP BY Patient_id"""
+    part9 = """WITH W1 as (%s), W2 as (%s), W3 as (%s), W4 as (%s)
+            SELECT W1.Patient_id, P.Full_name
+            FROM W1, W2, W3, W4, Patient as P
+            WHERE W1.Patient_id=W2.Patient_id AND W1.Patient_id=W3.Patient_id AND W1.Patient_id=W4.Patient_id
+            AND W1.Patient_id=P.Patient_id AND W1.count>=2 AND W2.count>=2 AND W3.count>=2 AND W4.count>=2
+            GROUP BY W1.Patient_id, P.Full_name;""" % (part5, part6, part7, part8)
     cur = conn.cursor()
     cur.execute(part9)
     rows = cur.fetchall()
