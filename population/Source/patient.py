@@ -1,12 +1,16 @@
 #!/usr/bin/env python
-
+import account
 from main import *
 import sys
 from account import *
-from account import account_id
-from staff import doctor_id
 
-patient_id = 1
+patient_id = 0
+
+with open("data.txt", "r") as f:
+    account_id = int(f.readline().replace("\n", ""))
+    doctor_id = int(f.readline().replace("\n", ""))
+
+print(doctor_id, account_id)
 
 
 def create_patient():
@@ -21,7 +25,7 @@ def create_patient():
         name = wrap(fake.name_male())
         gender = wrap("M")
 
-    return "INSERT INTO Patient(Account_id, Full_name, Address, Date_of_birth, Gender, Passport_number, Insurance_policy_number, Credit_card_number, Age) VALUES (" + str(account_id) + ")," + \
+    return "INSERT INTO Patient(Account_id, Full_name, Address, Date_of_birth, Gender, Passport_number, Insurance_policy_number, Credit_card_number, Age) VALUES (" + str(account_id) + " ," + \
            name + " , " + address() + " , " + wrap(fake.date_of_birth(tzinfo=None, minimum_age=age, maximum_age=age)) + " , " + gender + " , " + passport_number() + " , " + insurance_number() + " , " + \
            credit_number() + " , " + wrap(age) + " );"
 
@@ -47,17 +51,21 @@ def create_payment():
 
 
 # n = int(input())
-
 n = int(sys.argv[1])
 
 with open('hospital_postgresql.sql', 'a+') as f:
     for i in range(n):
         print(create_account(5), file=f)
+        account_id += 1
         print(create_patient(), file=f)
-        for j in range(25): print(create_appointment(), file=f)
-        print(create_medical_record(), file=f)
-        print(create_notification(), file=f)
-        print(create_notification(), file=f)
-        print(create_payment(), file=f)
-        print(create_payment(), file=f)
+        for j in range(25):
+            print(create_appointment(), file=f)
 
+        for j in range(fake.random_int(min=0, max=5)):
+            print(create_medical_record(), file=f)
+
+        for j in range(fake.random_int(min=0, max=3)):
+            print(create_notification(), file=f)
+
+        for j in range(fake.random_int(min=0, max=5)):
+            print(create_payment(), file=f)

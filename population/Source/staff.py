@@ -2,15 +2,17 @@
 
 import random
 import sys
-from main import *
+
 from account import *
-from account import account_id
+from main import *
 
 passport_number_global = 0
-medical_staff_id = 1
-nonmedical_staff_id = 1
-doctor_id = 1
-message_id = 1
+medical_staff_id = 0
+nonmedical_staff_id = 0
+message_id = 0
+
+doctor_id = 0
+account_id = 0
 
 
 def create_staff(position):
@@ -35,6 +37,7 @@ def create_nonmedical_staff():
 def create_doctor():
     global doctor_id
     doctor_id += 1
+    print('doc created', doctor_id)
     return "INSERT INTO Doctor(MS_id, Specialization) VALUES (" + str(medical_staff_id) + " , " + medical_specialization() + " );"
 
 
@@ -63,7 +66,7 @@ def create_message(f):
 
 
 n = int(sys.argv[1])
-
+print(n)
 
 with open('hospital_postgresql.sql', 'w') as f:
     with open('../dmd_create_postgre.sql', 'r') as dmd_create:
@@ -74,6 +77,7 @@ with open('hospital_postgresql.sql', 'w') as f:
     for i in range(n):
         if chance(30) or i < 30:
             print(create_account(fake.random_int(min=1, max=2)), file=f)
+            account_id += 1
             print(create_staff("'Doctor'"), file=f)
             create_email(f)
             print(create_medical_staff(), file=f)
@@ -81,14 +85,20 @@ with open('hospital_postgresql.sql', 'w') as f:
             create_schedule(f)
         elif chance(60):
             print(create_account(3), file=f)
+            account_id += 1
             print(create_staff("'Nurse'"), file=f)
             create_email(f)
             print(create_medical_staff(), file=f)
         else:
             print(create_account(4), file=f)
+            account_id += 1
             print(create_staff(nonmedical_position()), file=f)
             create_email(f)
             print(create_nonmedical_staff(), file=f)
         if i > 30:
             for j in range(fake.random_int(min=0, max=5)):
                 create_message(f)
+
+with open("data.txt", "w") as f:
+    print(account_id, file=f)
+    print(doctor_id, file=f)

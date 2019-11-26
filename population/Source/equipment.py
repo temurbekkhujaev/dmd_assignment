@@ -7,7 +7,7 @@ import sys
 n = int(sys.argv[1])
 
 with open('hospital_postgresql.sql', 'a+') as f:
-    equipment_id = 1
+    equipment_id = 0
 
     for i in range(n):
         equipment_id += 1
