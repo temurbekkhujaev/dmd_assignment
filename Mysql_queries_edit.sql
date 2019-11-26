@@ -1,4 +1,4 @@
-SELECT Full_name
+CREATE VIEW Forgotten AS SELECT Full_name
 FROM Doctor as D, Medical_staff as MS, Staff as S,
 	(SELECT DISTINCT Doctor_id
      FROM Appointment as A, (SELECT Date
@@ -10,7 +10,7 @@ AND D.MS_id=MS.MS_id
 AND MS.Passport_number=S.Passport_number
 AND (Full_name LIKE 'M%' OR Full_name LIKE 'L%');
 
-SELECT Full_name, AAA.Day, AAA.Time, AAA.Total, Average
+CREATE VIEW Appointments_per_doctor AS SELECT Full_name, AAA.Day, AAA.Time, AAA.Total, Average
 FROM Doctor as D, Medical_staff as MS, Staff as S,
 	(SELECT AA.Day, AA.Time, AA.Doctor_id, AA.Total, (AA.Total*1.0/360) as Average
 	FROM (SELECT (SELECT DAYNAME(LY.Date)) as Day, (SELECT HOUR(LY.Date)) as Time, Doctor_id, Count(*) as Total
@@ -23,7 +23,7 @@ AND D.MS_id=MS.MS_id
 AND MS.Passport_number=S.Passport_number
 ORDER BY Full_name, AAA.Day, AAA.Time;
 
-SELECT W1.Patient_id, P.Full_name
+CREATE VIEW Home_visits AS SELECT W1.Patient_id, P.Full_name
 FROM Patient as P,
 	(SELECT COUNT(*) as count, Patient_id
      FROM Appointment
@@ -48,7 +48,7 @@ AND W1.Patient_id=P.Patient_id
 AND W1.count>=2 AND W2.count>=2 AND W3.count>=2 AND W4.count>=2
 GROUP BY W1.Patient_id, P.Full_name;
 
-SELECT sum(Price) as Income
+CREATE VIEW Income AS SELECT sum(Price) as Income
 FROM (SELECT(CASE
             WHEN T.Age<50 AND T.Num_app<3 THEN 200
             WHEN T.Age<50 AND T.Num_app>=3 THEN 250
@@ -63,7 +63,7 @@ FROM (SELECT(CASE
             WHERE P.Patient_id=LM.Patient_id
             GROUP BY LM.Patient_id, Age) as T) as TP;
 
-SELECT TT.Doctor_id, TT.Full_name
+CREATE VIEW Doctors_for_reward AS SELECT TT.Doctor_id, TT.Full_name
 FROM (SELECT TY.Doctor_id, Full_name, count(DISTINCT TY.Patient_id) as Number
 	  FROM Doctor as D, Medical_staff as MS, Staff as S,
 	  	   (SELECT *
