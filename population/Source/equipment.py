@@ -6,7 +6,7 @@ import sys
 # n = int(input())
 n = int(sys.argv[1])
 
-with open('hospital_postgresql.sql', 'a+') as f:
+with open('../postgre_app/hospital_postgresql.sql', 'a+') as f:
     equipment_id = 0
 
     for i in range(n):
@@ -21,8 +21,8 @@ with open('hospital_postgresql.sql', 'a+') as f:
             # print("SELECT CURRVAL('Equipment_equipment_id_seq') ;", file=f)
             print("INSERT INTO Nonmedical_equipment(Equipment_id) VALUES (" + str(equipment_id) + ");", file=f)
 
-with open('hospital_postgresql.sql', 'r') as r:
-    with open('hospital_mysql.sql', 'w') as w:
+with open('../postgre_app/hospital_postgresql.sql', 'r') as r:
+    with open('../mysql_app/hospital_mysql.sql', 'w') as w:
 
         with open('../dmd_create_mysql.sql', 'r') as dmd_create:
 

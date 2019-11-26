@@ -4,7 +4,7 @@ from main import *
 import sys
 n = int(sys.argv[1])
 
-with open('hospital_postgresql.sql', 'a+') as f:
+with open('../postgre_app/hospital_postgresql.sql', 'a+') as f:
     for i in range(n):
         camera_number = fake.random_int(min=1, max=50)
         date = fake.date_this_month(before_today=True, after_today=False)

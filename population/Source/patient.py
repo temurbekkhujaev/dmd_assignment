@@ -53,7 +53,7 @@ def create_payment():
 # n = int(input())
 n = int(sys.argv[1])
 
-with open('hospital_postgresql.sql', 'a+') as f:
+with open('../postgre_app/hospital_postgresql.sql', 'a+') as f:
     for i in range(n):
         print(create_account(5), file=f)
         account_id += 1

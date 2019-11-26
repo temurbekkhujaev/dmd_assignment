@@ -68,7 +68,7 @@ def create_message(f):
 n = int(sys.argv[1])
 print(n)
 
-with open('hospital_postgresql.sql', 'w') as f:
+with open('../postgre_app/hospital_postgresql.sql', 'w') as f:
     with open('../dmd_create_postgre.sql', 'r') as dmd_create:
 
         for line in dmd_create:
