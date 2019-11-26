@@ -44,18 +44,19 @@ def query_2(connection):
 
 
 def query_3(connection):
-    part5 = """SELECT COUNT(*), Patient_id 
+    part5 = """SELECT COUNT(*) as count, Patient_id 
                 FROM Appointment 
-                WHERE Date BETWEEN now() - INTERVAL 7 day AND now() GROUP BY Patient_id"""
-    part6 = """SELECT COUNT(Patient_id), Patient_id 
-                FROM Appointment 
-                WHERE Date BETWEEN now() - INTERVAL 14 day AND now() - INTERVAL 7 days 
+                WHERE Date BETWEEN now() - INTERVAL 7 day AND now()
                 GROUP BY Patient_id"""
-    part7 = """SELECT COUNT(Patient_id), Patient_id 
+    part6 = """SELECT COUNT(*) as count, Patient_id 
+                FROM Appointment 
+                WHERE Date BETWEEN now() - INTERVAL 14 day AND now() - INTERVAL 7 day 
+                GROUP BY Patient_id"""
+    part7 = """SELECT COUNT(*) as count, Patient_id 
                 FROM Appointment 
                 WHERE Date BETWEEN now() - INTERVAL 21 day AND now() - INTERVAL 14 day 
                 GROUP BY Patient_id"""
-    part8 = """SELECT COUNT(Patient_id), Patient_id 
+    part8 = """SELECT COUNT(*) as count, Patient_id 
                 FROM Appointment 
                 WHERE Date BETWEEN now() - INTERVAL 28 day AND now() - INTERVAL 21 day 
                 GROUP BY Patient_id"""
@@ -74,21 +75,23 @@ def query_3(connection):
 
 
 def query_4(connection):
-    part1 = """SELECT * FROM Appointment WHERE Date >= now() - INTERVAL 1 month"""
-    part2 = """SELECT count(*) as Num_app, LM.Patient_id, Age FROM LM, Patient as P 
-                WHERE P.Patient_id=LM.Patient_id GROUP BY LM.Patient_id, Age"""
-    part3 = """SELECT (CASE
+    part1 = """SELECT * FROM Appointment
+               WHERE Date >= now() - INTERVAL 1 month"""
+    part2 = """SELECT count(*) as Num_app, LM.Patient_id, Age
+                FROM LM, Patient as P 
+                WHERE P.Patient_id=LM.Patient_id
+                GROUP BY LM.Patient_id"""
+    part3 = """WITH LM as (%s), T as (%s) SELECT sum(CASE
                             WHEN T.Age<50 AND T.Num_app<3 THEN 200
                             WHEN T.Age<50 AND T.Num_app>=3 THEN 250
                             WHEN T.Age>=50 AND T.Num_app<3 THEN 400
                             WHEN T.Age>=50 AND T.Num_app>=3 THEN 500
-            END) as Price FROM T"""
-    part4 = """WITH LM as (%s), T as (%s), Price as (%s) SELECT sum (Price) as Income FROM (Price)""" % (part1, part2, part3)
+            END) as Income FROM T""" % (part1, part2)
 
-    # part5 = """WITH LM as (%s), T as (%s) SELECT sum(Price) as Income;""" % (part1, part2)
+    # part4 = """WITH LM as (%s), T as (%s) SELECT sum(Price) as Income;""" % (part1, part2)
 
     mycursor = connection.cursor()
-    mycursor.execute(part4)
+    mycursor.execute(part3)
     rows = mycursor.fetchall()
     mycursor.close()
     return rows
