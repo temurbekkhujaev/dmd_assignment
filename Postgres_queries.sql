@@ -49,7 +49,7 @@ WITH LM as (SELECT * FROM Appointment WHERE Date >= now()::timestamp - INTERVAL 
                             WHEN T.Age<50 AND T.Num_app>=3 THEN 250
                             WHEN T.Age>=50 AND T.Num_app<3 THEN 400
                             WHEN T.Age>=50 AND T.Num_app>=3 THEN 500
-            END) FROM T
+            END) FROM T;
 
 --query_5
 WITH TY as (SELECT * FROM Appointment WHERE Date>=now()::timestamp-INTERVAL '10 years'),
@@ -71,7 +71,7 @@ WITH TY as (SELECT * FROM Appointment WHERE Date>=now()::timestamp-INTERVAL '10 
             			AND Date>=now()::timestamp-INTERVAL '6 years' GROUP BY Doctor_id) as S6 WHERE n>=5) AND
 	            EXISTS (SELECT * FROM (SELECT TY.Doctor_id, count(*) as n FROM TY WHERE Date<now()::timestamp-INTERVAL '6 year' 
             			AND Date>=now()::timestamp-INTERVAL '7 years' GROUP BY Doctor_id) as S7 WHERE n>=5) AND
-	            EXISTS (SELECT * FROM (ELECT TY.Doctor_id, count(*) as n FROM TY WHERE Date<now()::timestamp-INTERVAL '7 year' 
+	            EXISTS (SELECT * FROM (SELECT TY.Doctor_id, count(*) as n FROM TY WHERE Date<now()::timestamp-INTERVAL '7 year' 
             			AND Date>=now()::timestamp-INTERVAL '8 years' GROUP BY Doctor_id) as S8 WHERE n>=5) AND
 	            EXISTS (SELECT * FROM (SELECT TY.Doctor_id, count(*) as n FROM TY WHERE Date<now()::timestamp-INTERVAL '8 year' 
             			AND Date>=now()::timestamp-INTERVAL '9 years' GROUP BY Doctor_id) as S9 WHERE n>=5) AND
