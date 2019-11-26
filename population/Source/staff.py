@@ -17,7 +17,7 @@ def create_staff(position):
     global passport_number_global
     passport_number_global = passport_number()
     return "INSERT INTO Staff(Passport_number, Account_id, Full_name, Position) VALUES (" + str(passport_number_global) + \
-           " , " + account_id + "," + full_name() + " , " + position + " );"
+           " , " + str(account_id()) + "," + full_name() + " , " + position + " );"
 
 
 def create_medical_staff():
@@ -58,7 +58,7 @@ def create_message(f):
     message_id += 1
     print("INSERT INTO Message(Passport_number, Time_sent, Text) VALUES (" + str(passport_number_global) + " , " + account_created() + " , " +
           wrap(fake.sentence().replace("\n", "")) + ");", file=f)
-    print("INSERT INTO Receiver(Message_id, Receiver_id) VALUES (" + message_id + ") , " +
+    print("INSERT INTO Receiver(Message_id, Receiver_id) VALUES (" + str(message_id) + ") , " +
           str(random.sample(used_passport_numbers - {'-1'}, 1)[0]) + ");", file=f)
 
 

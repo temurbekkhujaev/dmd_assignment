@@ -32,17 +32,17 @@ def create_appointment():
 
 
 def create_medical_record():
-    return "INSERT INTO Medical_record(Patient_id, Creation_date, Diagnosis, Prescription) VALUES (" + patient_id + "), " + account_created() + " , " + \
+    return "INSERT INTO Medical_record(Patient_id, Creation_date, Diagnosis, Prescription) VALUES (" + str(patient_id) + "), " + account_created() + " , " + \
            wrap(fake.word(ext_word_list=diagnosis_list)) + " , " + wrap(fake.word(ext_word_list=prescription_list)) + " );"
 
 
 def create_notification():
-    return "INSERT INTO Notification(Patient_id, Date, Event, Sound) VALUES (" + patient_id + "), " + account_created() + " , " + \
+    return "INSERT INTO Notification(Patient_id, Date, Event, Sound) VALUES (" + str(patient_id) + "), " + account_created() + " , " + \
            wrap(fake.sentence().replace("\n", "")) + " , " + str(fake.random_int(min=0, max=10)) + " );"
 
 
 def create_payment():
-    return "INSERT INTO Payment(Patient_id, Date, Description, Amount) VALUES (" + patient_id + "), " + account_created() + " , " + \
+    return "INSERT INTO Payment(Patient_id, Date, Description, Amount) VALUES (" + str(patient_id) + "), " + account_created() + " , " + \
            wrap(fake.sentence().replace("\n", "")) + " , " + str(fake.random_int(min=1, max=9999999)) + " );"
 
 
