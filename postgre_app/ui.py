@@ -41,7 +41,7 @@ class UI:
 
     def query1(self):
         input_dialog = QtWidgets.QInputDialog()
-        patient_id, ok_pressed = input_dialog.getInt(input_dialog, "Get patient id", "ID:", 0, 0, 100000, 1)
+        patient_id, ok_pressed = input_dialog.getInt(input_dialog, "Get patient id", "ID:", 0, 1, 100000, 1)
         if (ok_pressed):
             doctor_names = test.query_1(patient_id, self.connection)
             names = QtGui.QStandardItemModel()
