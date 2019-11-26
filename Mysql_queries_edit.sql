@@ -8,7 +8,7 @@ FROM Doctor as D, Medical_staff as MS, Staff as S,
 WHERE Dc.Doctor_id=D.Doctor_id
 AND D.MS_id=MS.MS_id
 AND MS.Passport_number=S.Passport_number
-AND (Full_name LIKE '[ML]%');
+AND (Full_name LIKE 'M%' OR Full_name LIKE 'L%);
 
 SELECT Full_name, AAA.Day, AAA.Time, AAA.Total, Average
 FROM Doctor as D, Medical_staff as MS, Staff as S,
