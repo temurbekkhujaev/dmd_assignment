@@ -22,13 +22,13 @@ with open('hospital_postgresql.sql', 'a+') as f:
             print("INSERT INTO Nonmedical_equipment(Equipment_id) VALUES (" + str(equipment_id) + ");", file=f)
 
 with open('hospital_postgresql.sql', 'r') as r:
-    with open('hospital_mysql', 'w') as w:
+    with open('hospital_mysql.sql', 'w') as w:
 
         with open('../dmd_create_mysql.sql', 'r') as dmd_create:
 
             for line in dmd_create:
                 w.write(line)
-
+        print("", file=w)
         flag = False
         for line in r:
             if "INSERT" in line: flag = True

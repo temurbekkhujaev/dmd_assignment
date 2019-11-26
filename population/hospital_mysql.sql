@@ -1,5 +1,5 @@
 CREATE TABLE Account (
-	Account_id SERIAL PRIMARY KEY,
+	Account_id INTEGER AUTO_INCREMENT PRIMARY KEY,
 	Login VARCHAR(30) NOT NULL,
 	Password VARCHAR(30) NOT NULL,
 	Permission_level INTEGER NOT NULL,
@@ -16,26 +16,26 @@ CREATE TABLE Staff (
 );
 
 CREATE TABLE Medical_staff (
-	MS_id SERIAL PRIMARY KEY,
+	MS_id INTEGER AUTO_INCREMENT PRIMARY KEY,
 	Passport_number INTEGER,
 	FOREIGN KEY (Passport_number) REFERENCES Staff(Passport_number)
 );
 
 CREATE TABLE Nonmedical_staff (
-	NMS_id SERIAL PRIMARY KEY,
+	NMS_id INTEGER AUTO_INCREMENT PRIMARY KEY,
 	Passport_number INTEGER,
 	FOREIGN KEY (Passport_number) REFERENCES Staff(Passport_number)
 );
 
 CREATE TABLE Doctor (
-	Doctor_id SERIAL PRIMARY KEY,
+	Doctor_id INTEGER AUTO_INCREMENT PRIMARY KEY,
 	MS_id INTEGER NOT NULL,
 	Specialization VARCHAR(50) NOT NULL,
 	FOREIGN KEY (MS_id) REFERENCES Medical_staff(MS_id)
 );
 
 CREATE TABLE Patient (
-	Patient_id SERIAL PRIMARY KEY,
+	Patient_id INTEGER AUTO_INCREMENT PRIMARY KEY,
 	Account_id INTEGER,
 	Full_name VARCHAR(50) NOT NULL,
 	Address VARCHAR(200) NOT NULL,
@@ -56,7 +56,7 @@ CREATE TABLE Schedule (
 );
 
 CREATE TABLE Appointment (
-	Appointment_id SERIAL PRIMARY KEY,
+	Appointment_id INTEGER AUTO_INCREMENT PRIMARY KEY,
 	Doctor_id INTEGER NOT NULL,
 	Patient_id INTEGER NOT NULL,
 	Room INTEGER NOT NULL,
@@ -67,7 +67,7 @@ CREATE TABLE Appointment (
 );
 
 CREATE TABLE Medical_record (
-	Record_id SERIAL PRIMARY KEY,
+	Record_id INTEGER AUTO_INCREMENT PRIMARY KEY,
 	Patient_id INTEGER NOT NULL,
 	Creation_date DATE NOT NULL,
 	Diagnosis VARCHAR(1000),
@@ -76,7 +76,7 @@ CREATE TABLE Medical_record (
 );
 
 CREATE TABLE Notification (
-	Notification_id SERIAL NOT NULL,
+	Notification_id INTEGER AUTO_INCREMENT PRIMARY KEY,
 	Patient_id INTEGER NOT NULL,
 	Date DATE NOT NULL,
 	Event VARCHAR(100) NOT NULL,
@@ -85,7 +85,7 @@ CREATE TABLE Notification (
 );
 
 CREATE TABLE Payment (
-	Invoice_number SERIAL PRIMARY KEY,
+	Invoice_number INTEGER AUTO_INCREMENT PRIMARY KEY,
 	Patient_id INTEGER NOT NULL,
 	Date DATE NOT NULL,
 	Description VARCHAR(300),
@@ -94,7 +94,7 @@ CREATE TABLE Payment (
 );
 
 CREATE TABLE Video_record (
-	Video_id SERIAL PRIMARY KEY,
+	Video_id INTEGER AUTO_INCREMENT PRIMARY KEY,
 	Date DATE NOT NULL,
 	Path VARCHAR(100) NOT NULL,
 	Camera_number INTEGER NOT NULL
@@ -107,7 +107,7 @@ CREATE TABLE Email (
 );
 
 CREATE TABLE Message (
-	Message_id SERIAL PRIMARY KEY,
+	Message_id INTEGER AUTO_INCREMENT PRIMARY KEY,
 	Passport_number INTEGER,
 	Time_sent TIMESTAMP NOT NULL,
 	Text VARCHAR(1000) NOT NULL,
@@ -122,19 +122,19 @@ CREATE TABLE Receiver (
 );
 
 CREATE TABLE Equipment (
-	Equipment_id SERIAL PRIMARY KEY,
+	Equipment_id INTEGER AUTO_INCREMENT PRIMARY KEY,
 	Name VARCHAR(50) NOT NULL,
 	Quantity INTEGER NOT NULL
 );
 
 CREATE TABLE Medical_equipment (
-	ME_id SERIAL PRIMARY KEY,
+	ME_id INTEGER AUTO_INCREMENT PRIMARY KEY,
 	Equipment_id INTEGER,
 	FOREIGN KEY (Equipment_id) REFERENCES Equipment(Equipment_id)
 );
 
 CREATE TABLE Nonmedical_equipment (
-	NME_id SERIAL PRIMARY KEY,
+	NME_id INTEGER AUTO_INCREMENT PRIMARY KEY,
 	Equipment_id INTEGER,
 	FOREIGN KEY (Equipment_id) REFERENCES Equipment(Equipment_id)
 );
