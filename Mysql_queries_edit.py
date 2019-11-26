@@ -17,7 +17,7 @@ def query_1(p_id, connection):
     part2 = "SELECT DISTINCT Doctor_id FROM Appointment as A, (%s) as DD WHERE A.Date=DD.Date" % part1
     part3 = """WITH Dc as (%s) SELECT Full_name FROM Doctor as D, Medical_staff as MS, Staff as S, Dc 
                 WHERE Dc.Doctor_id=D.Doctor_id AND D.MS_id=MS.MS_id AND MS.Passport_number=S.Passport_number 
-                AND (Full_name LIKE '[ML]%%');""" % part2
+                AND (Full_name LIKE 'M%' OR Full_name LIKE 'L%');""" % part2
 
     mycursor = connection.cursor()
     mycursor.execute(part3)
