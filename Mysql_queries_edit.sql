@@ -3,12 +3,12 @@ FROM Doctor as D, Medical_staff as MS, Staff as S,
 	(SELECT DISTINCT Doctor_id
      FROM Appointment as A, (SELECT Date
             				FROM Appointment
-            				WHERE Patient_id=417 ORDER BY Date DESC LIMIT 1) as DD
+            				WHERE Patient_id=136 ORDER BY Date DESC LIMIT 1) as DD
      WHERE A.Date=DD.Date) as Dc
 WHERE Dc.Doctor_id=D.Doctor_id
 AND D.MS_id=MS.MS_id
 AND MS.Passport_number=S.Passport_number
-AND (Full_name LIKE 'M%' OR Full_name LIKE 'L%);
+AND (Full_name LIKE 'M%' OR Full_name LIKE 'L%');
 
 SELECT Full_name, AAA.Day, AAA.Time, AAA.Total, Average
 FROM Doctor as D, Medical_staff as MS, Staff as S,
