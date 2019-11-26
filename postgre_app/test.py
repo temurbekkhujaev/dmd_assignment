@@ -79,7 +79,7 @@ def query_4(conn):
                             WHEN T.Age<50 AND T.Num_app>=3 THEN 250
                             WHEN T.Age>=50 AND T.Num_app<3 THEN 400
                             WHEN T.Age>=50 AND T.Num_app>=3 THEN 500
-            END) FROM T;""" % (part1, part2)
+            END) FROM T""" % (part1, part2)
     #part4 = """WITH LM as (%s), T as (%s)
      #       SELECT sum(Price) as Income;""" % (part1, part2)
     cur = conn.cursor()

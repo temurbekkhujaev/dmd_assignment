@@ -33,7 +33,8 @@ def query_2(connection):
     part5 = """SELECT AA.Day, AA.Time, AA.Doctor_id, AA.Total, (AA.Total*1.0/360) as Average FROM AA"""
     part6 = """WITH LY as (%s), AA as (%s), AAA as (%s)
             SELECT Full_name, AAA.Day, AAA.Time, AAA.Total, Average FROM AAA, Doctor as D, Medical_staff as MS, 
-            Staff as S WHERE AAA.Doctor_id=D.Doctor_id AND D.MS_id=MS.MS_id AND MS.Passport_number=S.Passport_number;""" % (part1, part4, part5)
+            Staff as S WHERE AAA.Doctor_id=D.Doctor_id AND D.MS_id=MS.MS_id AND MS.Passport_number=S.Passport_number
+            ORDER BY Full_name;""" % (part1, part4, part5)
 
     mycursor = connection.cursor()
     mycursor.execute(part6)
