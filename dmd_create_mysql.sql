@@ -1,7 +1,3 @@
-create database hospital;
-
-use hospital;
-
 CREATE TABLE Account (
 	Account_id INTEGER AUTO_INCREMENT PRIMARY KEY,
 	Login VARCHAR(30) NOT NULL,
